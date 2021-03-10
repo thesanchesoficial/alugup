@@ -1,76 +1,26 @@
-import 'dart:async';
 
+import 'dart:convert';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:http/http.dart' as http;
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
+    builder: BotToastInit(),
     debugShowCheckedModeBanner: false,
-    home: Splash(),
+    home: Login(),
   ));
 }
 
 Map dados2;
 
-class Splash extends StatelessWidget {
-  carregarNovaTela(context) async {
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-          (route) => false);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    carregarNovaTela(context);
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: <Widget>[
-          Image.asset(
-            "assets/images/background.png",
-            height: MediaQuery.of(context).size.height,
-            fit: BoxFit.fitHeight,
-          ),
-          SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 30),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 50),
-                          child: Text(
-                            "Encontre objetos com base em interreses em comum.",
-                            style: TextStyle(
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.043,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+const Map<String, dynamic> MAP_ERRO_API = {
+  "code": "0",
+  "erro": "Houve um erro",
+};
 
 class HomePage extends StatefulWidget {
   @override
@@ -96,13 +46,9 @@ class _HomePageState extends State<HomePage> {
       body: telas[indiceTela],
       bottomNavigationBar: BottomNavyBar(
         onItemSelected: (index) {
-          if(index == 4 && dados2.isEmpty) {
-            
-          } else {
-            setState(() {
-              indiceTela = index;
-            });
-          }
+          setState(() {
+            indiceTela = index;
+          });
         },
         selectedIndex: indiceTela,
         items: [
@@ -133,25 +79,206 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: indiceTela,
-      //   type: BottomNavigationBarType.fixed,
-      //   onTap: (index){
-      //     setState(() {
-      //       indiceTela = index;
-      //     });
-      //   },
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home_outlined), title: Text("Inicio")),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.search), title: Text("Buscar")),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.add), title: Text("Adicionar")),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person_outline), title: Text("Perfil"),),
-      //   ],
-      // ),
+    );
+  }
+}
+
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+
+  TextEditingController email = TextEditingController();
+  TextEditingController senha = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff66008e),
+        title: Text("Login"),
+      ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
+              controller: email,
+              decoration: InputDecoration(
+                labelText: "Email"
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: senha,
+              decoration: InputDecoration(
+                labelText: "Senha"
+              ),
+            ),
+            SizedBox(height: 15),
+            Container(width: MediaQuery.of(context).size.width, height: 60, child: Expanded(child: ElevatedButton(onPressed: () async {
+              BotToast.showLoading();
+              try {
+                http.Response response = await http.post("https://matheussanches.wixsite.com/mysite-10/_functions/login",
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: jsonEncode({
+                    "email": email.text,
+                    "senha": senha.text
+                  })
+                );
+                BotToast.closeAllLoading();
+                if (response.body.isNotEmpty) {
+                  if(json.decode(response.body)["code"] == "200") {
+                    dados2 = json.decode(response.body)["resultado"]["items"][0];
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                  } else {
+                    BotToast.showNotification(
+                      title: (_) {
+                        return Text("Usuario nao encontrado");
+                      }
+                    );
+                  }
+                  return json.decode(response.body);
+                }
+                else return MAP_ERRO_API;
+              } catch (e) {
+                print(e);
+                return MAP_ERRO_API;
+              }
+              
+            }, child: Text("Entrar")))),
+            SizedBox(height: 15),
+            Container(width: MediaQuery.of(context).size.width, height: 60, child: Expanded(child: ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));}, child: Text("Criar conta"))))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Cadastro extends StatefulWidget {
+  @override
+  _CadastroState createState() => _CadastroState();
+}
+
+class _CadastroState extends State<Cadastro> {
+
+  TextEditingController nome = TextEditingController();
+  TextEditingController senha = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController telefone = TextEditingController();
+  TextEditingController nascimento = TextEditingController();
+  TextEditingController cpf = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xff66008e),
+        title: Text("Cadastro"),
+      ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
+              controller: nome,
+              decoration: InputDecoration(
+                labelText: "Nome"
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: telefone,
+              decoration: InputDecoration(
+                labelText: "Telefone"
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: nascimento,
+              decoration: InputDecoration(
+                labelText: "Nascimento"
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: email,
+              decoration: InputDecoration(
+                labelText: "Email"
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: senha,
+              decoration: InputDecoration(
+                labelText: "Senha"
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: cpf,
+              decoration: InputDecoration(
+                labelText: "CPF"
+              ),
+            ),
+            SizedBox(height: 15),
+            Container(width: MediaQuery.of(context).size.width, height: 60, child: Expanded(child: ElevatedButton(onPressed: () async {
+              if(email.text.length > 4 && senha.text.length > 4 && nome.text.length > 4 && telefone.text.length > 4 && nascimento.text.length > 4 && cpf.text.length > 4) {
+                BotToast.showLoading();
+                try {
+                  http.Response response = await http.post("https://matheussanches.wixsite.com/mysite-10/_functions/usuario",
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: jsonEncode({
+                      "email": email.text,
+                      "senha": senha.text,
+                      "nome": nome.text,
+                      "telefone": telefone.text,
+                      "nascimento": nascimento.text,
+                      "cpf": cpf.text
+                    })
+                  );
+                  BotToast.closeAllLoading();
+                  print(response.body);
+                  if (response.body.isNotEmpty) {
+                    if(json.decode(response.body)["code"] == "200") {
+                      dados2 = json.decode(response.body)["resultado"];
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    } else {
+                      BotToast.showNotification(
+                        title: (_) {
+                          return Text("Erro ao criar usuario");
+                        }
+                      );
+                    }
+                    return json.decode(response.body);
+                  }
+                  else return MAP_ERRO_API;
+                } catch (e) {
+                  print(e);
+                  return MAP_ERRO_API;
+                }
+              } else {
+                BotToast.showNotification(
+                  title: (_) {
+                    return Text("Alguns dados não são validos");
+                  }
+                );
+              }              
+            }, child: Text("Criar conta")))),
+            SizedBox(height: 15),
+            Container(width: MediaQuery.of(context).size.width, height: 60, child: Expanded(child: ElevatedButton(onPressed: () {Navigator.pop(context);}, child: Text("Fazer login"))))
+          ],
+        ),
+      ),
     );
   }
 }
@@ -285,6 +412,8 @@ class _InicioState extends State<Inicio> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Color(0xff66008e),
+          automaticallyImplyLeading: false,
           elevation: 0,
           title: Text("alugUP"),
           centerTitle: true,
@@ -750,6 +879,7 @@ class _ChatState extends State<Chat> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Chats"),
         centerTitle: true,
         elevation: 0,
@@ -812,6 +942,7 @@ class _FavoritosState extends State<Favoritos> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Favoritos"),
         centerTitle: true,
         elevation: 0,
@@ -881,6 +1012,7 @@ class _AdicionarState extends State<Adicionar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Adicionar"),
         centerTitle: true,
         elevation: 0,
@@ -965,16 +1097,19 @@ class _PerfilState extends State<Perfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color(0xff66008e),
         elevation: 0,
-        title: Text("João"),
+        title: Text(dados2["nome"].toString()),
         centerTitle: true,
         actions: [
           IconButton(
             icon: Icon(
-              Icons.settings,
+              Icons.logout,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (route) => false);
+            },
           ),
         ],
       ),
@@ -1041,6 +1176,23 @@ class MeusDados extends StatefulWidget {
 }
 
 class _MeusDadosState extends State<MeusDados> {
+
+  TextEditingController nome = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController nascimento = TextEditingController();
+  TextEditingController telefone = TextEditingController();
+  TextEditingController cpf = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nome.text = dados2["nome"].toString();
+    email.text = dados2["email"].toString();
+    nascimento.text = dados2["nascimento"].toString();
+    cpf.text = dados2["cpf"].toString();
+    telefone.text = dados2["telefone"].toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1069,6 +1221,7 @@ class _MeusDadosState extends State<MeusDados> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TextField(
+                      controller: nome,
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
                       textCapitalization: TextCapitalization.words,
@@ -1080,6 +1233,7 @@ class _MeusDadosState extends State<MeusDados> {
                       ),
                     ),
                     TextField(
+                      controller: cpf,
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
@@ -1087,6 +1241,7 @@ class _MeusDadosState extends State<MeusDados> {
                       ),
                     ),
                     TextField(
+                      controller: telefone,
                       // margin: EdgeInsets.only(top: 15),
                       keyboardType: TextInputType.phone,
                       textInputAction: TextInputAction.done,
@@ -1097,21 +1252,12 @@ class _MeusDadosState extends State<MeusDados> {
                     SizedBox(height: 15),
                     ListTile(
                       title: Text("E-MAIL"),
-                      subtitle: Text("joaoalgusto@gmail.com"),
+                      subtitle: Text(dados2["email"].toString()),
                     ),
                     ListTile(
                       title: Text("DATA DE NASCIMENTO"),
-                      subtitle: Text("01/01/1990"),
+                      subtitle: Text(dados2["nascimento"].toString()),
                     ),
-                    FlatButton(
-                      child: Text(
-                        "Redefinir senha",
-                        style: TextStyle(
-                          color: Color(0xff66008e),
-                        ),
-                      ),
-                      onPressed: () {},
-                    )
                   ],
                 ),
               ),
@@ -1129,7 +1275,43 @@ class _MeusDadosState extends State<MeusDados> {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () async{ 
+                BotToast.showLoading();
+                try {
+                  http.Response response = await http.put("https://matheussanches.wixsite.com/mysite-10/_functions/usuario",
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: jsonEncode({
+                      "email": email.text,
+                      "nome": nome.text,
+                      "telefone": telefone.text,
+                      "nascimento": nascimento.text,
+                      "cpf": cpf.text,
+                      "_id": dados2["_id"]
+                    })
+                  );
+                  BotToast.closeAllLoading();
+                  if (response.body.isNotEmpty) {
+                    print(response.body);
+                    if(json.decode(response.body)["code"] == "200") {
+                      dados2 = json.decode(response.body)["resultado"];
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    } else {
+                      BotToast.showNotification(
+                        title: (_) {
+                          return Text("Erro ao atualizar usuario");
+                        }
+                      );
+                    }
+                    return json.decode(response.body);
+                  }
+                  else return MAP_ERRO_API;
+                } catch (e) {
+                  print(e);
+                  return MAP_ERRO_API;
+                }
+              },
             )
           ],
         ));
