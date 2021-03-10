@@ -11,6 +11,8 @@ void main() {
   ));
 }
 
+Map dados2;
+
 class Splash extends StatelessWidget {
   carregarNovaTela(context) async {
     Timer(Duration(seconds: 3), () {
@@ -94,9 +96,13 @@ class _HomePageState extends State<HomePage> {
       body: telas[indiceTela],
       bottomNavigationBar: BottomNavyBar(
         onItemSelected: (index) {
-          setState(() {
-            indiceTela = index;
-          });
+          if(index == 4 && dados2.isEmpty) {
+            
+          } else {
+            setState(() {
+              indiceTela = index;
+            });
+          }
         },
         selectedIndex: indiceTela,
         items: [
@@ -295,8 +301,8 @@ class _InicioState extends State<Inicio> {
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.all(Radius.circular(800))),
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.all(Radius.circular(800))),
                   child: Center(
                       child: Row(
                     children: [
@@ -311,7 +317,8 @@ class _InicioState extends State<Inicio> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text("Categorias",
-                  style:TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
               ),
               SizedBox(height: 8),
               Container(
@@ -324,16 +331,18 @@ class _InicioState extends State<Inicio> {
                   itemCount: categorias.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                      margin: EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.all(Radius.circular(100))
-                      ),
-                      child: Center(
-                        child: Text(categorias[index], style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
-                      )
-                    );
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                        margin: EdgeInsets.only(left: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100))),
+                        child: Center(
+                          child: Text(categorias[index],
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold)),
+                        ));
                   },
                 ),
               ),
@@ -350,6 +359,7 @@ class _InicioState extends State<Inicio> {
                 margin: EdgeInsets.only(top: 8),
                 child: ListView.builder(
                   padding: EdgeInsets.only(right: 20),
+                  physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemCount: adicionadosRecentemente.length,
@@ -366,8 +376,8 @@ class _InicioState extends State<Inicio> {
                         margin: EdgeInsets.only(left: 20),
                         width: 250,
                         decoration: BoxDecoration(
-                          color: Colors.grey[200].withOpacity(.6),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                            color: Colors.grey[200].withOpacity(.6),
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -382,26 +392,30 @@ class _InicioState extends State<Inicio> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(20, 15, 20, 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(adicionadosRecentemente[index]["preco"],
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Color(0xff66008e),
-                                      fontWeight: FontWeight.bold
-                                    )
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(adicionadosRecentemente[index]["title"]),
-                                  SizedBox(height: 7),
-                                  Text("${adicionadosRecentemente[index]["quantidade"]} item"),
-                                ],
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 16),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        adicionadosRecentemente[index]["preco"],
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Color(0xff66008e),
+                                            fontWeight: FontWeight.bold)),
+                                    Text(adicionadosRecentemente[index]
+                                        ["title"]),
+                                    Text(
+                                        "${adicionadosRecentemente[index]["quantidade"]} item"),
+                                  ],
+                                ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -423,6 +437,7 @@ class _InicioState extends State<Inicio> {
                 margin: EdgeInsets.only(top: 8),
                 child: ListView.builder(
                   padding: EdgeInsets.only(right: 20),
+                  physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemCount: locatarios.length,
@@ -440,10 +455,11 @@ class _InicioState extends State<Inicio> {
                         margin: EdgeInsets.only(left: 20),
                         width: 150,
                         decoration: BoxDecoration(
-                          color: Colors.grey[200].withOpacity(.6),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                            color: Colors.grey[200].withOpacity(.6),
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Row(
@@ -461,26 +477,17 @@ class _InicioState extends State<Inicio> {
                                 ),
                               ],
                             ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(0, 13, 0, 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(height: 3),
-                                  Text(locatarios[index]["nome"]),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(Icons.star, color: Colors.amber),
-                                      SizedBox(width: 5),
-                                      Text("${locatarios[index]["nota"]}", maxLines: 1),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                            SizedBox(height: 3),
+                            Text(locatarios[index]["nome"]),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.star, color: Colors.amber),
+                                SizedBox(width: 5),
+                                Text("${locatarios[index]["nota"]}",
+                                    maxLines: 1),
+                              ],
                             ),
                           ],
                         ),
