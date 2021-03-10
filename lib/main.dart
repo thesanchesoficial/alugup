@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     Chat(),
     Favoritos(),
     Adicionar(),
-    Perfil(),
+    MeusDados(),
   ];
 
   int indiceTela = 0;
@@ -114,6 +114,7 @@ class _LoginState extends State<Login> {
             SizedBox(height: 15),
             TextField(
               controller: senha,
+              obscureText: true,
               decoration: InputDecoration(
                 labelText: "Senha"
               ),
@@ -132,6 +133,7 @@ class _LoginState extends State<Login> {
                   })
                 );
                 BotToast.closeAllLoading();
+                print(response.body);
                 if (response.body.isNotEmpty) {
                   if(json.decode(response.body)["code"] == "200") {
                     dados2 = json.decode(response.body)["resultado"]["items"][0];
@@ -217,6 +219,7 @@ class _CadastroState extends State<Cadastro> {
             SizedBox(height: 15),
             TextField(
               controller: senha,
+              obscureText: true,
               decoration: InputDecoration(
                 labelText: "Senha"
               ),
@@ -1197,20 +1200,13 @@ class _MeusDadosState extends State<MeusDados> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             "Meus Dados",
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
           ),
           backgroundColor: Color(0xff66008e),
           centerTitle: true,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
         ),
         body: Column(
           children: <Widget>[
@@ -1288,7 +1284,8 @@ class _MeusDadosState extends State<MeusDados> {
                       "telefone": telefone.text,
                       "nascimento": nascimento.text,
                       "cpf": cpf.text,
-                      "_id": dados2["_id"]
+                      "_id": dados2["_id"],
+                      "senha": dados2["senha"],
                     })
                   );
                   BotToast.closeAllLoading();
