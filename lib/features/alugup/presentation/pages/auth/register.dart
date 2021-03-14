@@ -88,7 +88,7 @@ class _CadastroState extends State<Cadastro> {
               ),
             ),
             SizedBox(height: 15),
-            Container(width: MediaQuery.of(context).size.width, height: 60, child: Expanded(child: ElevatedButton(onPressed: () async {
+            Container(width: MediaQuery.of(context).size.width, height: 60, child: Container(child: ElevatedButton(onPressed: () async {
               if(email.text.length > 4 && senha.text.length > 4 && nome.text.length > 4 && telefone.text.length > 4 && nascimento.text.length > 4 && cpf.text.length > 4) {
                 BotToast.showLoading();
                 try {
@@ -134,7 +134,7 @@ class _CadastroState extends State<Cadastro> {
               }              
             }, child: Text("Criar conta")))),
             SizedBox(height: 15),
-            Container(width: MediaQuery.of(context).size.width, height: 60, child: Expanded(child: ElevatedButton(onPressed: () {Navigator.pop(context);}, child: Text("Fazer login"))))
+            Container(width: MediaQuery.of(context).size.width, height: 60, child: Container(child: ElevatedButton(onPressed: () {Navigator.pop(context);}, child: Text("Fazer login"))))
           ],
         ),
       ),

@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             SizedBox(height: 15),
-            Container(width: MediaQuery.of(context).size.width, height: 60, child: Expanded(child: ElevatedButton(onPressed: () async {
+            Container(width: MediaQuery.of(context).size.width, height: 60, child: Container(child: ElevatedButton(onPressed: () async {
               BotToast.showLoading();
               try {
                 http.Response response = await http.post("https://matheussanches.wixsite.com/mysite-10/_functions/login",
@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
             Container(
               width: MediaQuery.of(context).size.width, 
               height: 60, 
-              child: Expanded(
+              child: Container(
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));
