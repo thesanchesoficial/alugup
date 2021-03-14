@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:http/http.dart' as http;
 import 'package:alugup/features/alugup/app/alugup_home.dart';
 import 'package:alugup/features/alugup/app/alugup_variaveis.dart';
@@ -15,9 +16,9 @@ class _CadastroState extends State<Cadastro> {
   TextEditingController nome = TextEditingController();
   TextEditingController senha = TextEditingController();
   TextEditingController email = TextEditingController();
-  TextEditingController telefone = TextEditingController();
-  TextEditingController nascimento = TextEditingController();
-  TextEditingController cpf = TextEditingController();
+  MaskedTextController telefone = MaskedTextController(mask: "(00) 00000 0000");
+  MaskedTextController nascimento = MaskedTextController(mask: "00/00/0000");
+  MaskedTextController cpf = MaskedTextController(mask: "000.000.000-00");
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,9 @@ class _CadastroState extends State<Cadastro> {
           children: [
             TextField(
               controller: nome,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
                 labelText: "Nome"
               ),
@@ -40,6 +44,8 @@ class _CadastroState extends State<Cadastro> {
             SizedBox(height: 15),
             TextField(
               controller: telefone,
+              keyboardType: TextInputType.phone,
+              textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 labelText: "Telefone"
               ),
@@ -47,6 +53,8 @@ class _CadastroState extends State<Cadastro> {
             SizedBox(height: 15),
             TextField(
               controller: nascimento,
+              keyboardType: TextInputType.phone,
+              textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 labelText: "Nascimento"
               ),
@@ -54,6 +62,8 @@ class _CadastroState extends State<Cadastro> {
             SizedBox(height: 15),
             TextField(
               controller: email,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 labelText: "Email"
               ),
@@ -61,6 +71,8 @@ class _CadastroState extends State<Cadastro> {
             SizedBox(height: 15),
             TextField(
               controller: senha,
+              keyboardType: TextInputType.visiblePassword,
+              textInputAction: TextInputAction.next,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: "Senha"
@@ -69,6 +81,8 @@ class _CadastroState extends State<Cadastro> {
             SizedBox(height: 15),
             TextField(
               controller: cpf,
+              keyboardType: TextInputType.phone,
+              textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 labelText: "CPF"
               ),

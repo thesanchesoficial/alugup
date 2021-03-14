@@ -29,6 +29,8 @@ class _LoginState extends State<Login> {
           children: [
             TextField(
               controller: email,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 labelText: "Email"
               ),
@@ -74,10 +76,21 @@ class _LoginState extends State<Login> {
                 print(e);
                 return MAP_ERRO_API;
               }
-              
-            }, child: Text("Entrar")))),
+            }, 
+            child: Text("Entrar")))),
             SizedBox(height: 15),
-            Container(width: MediaQuery.of(context).size.width, height: 60, child: Expanded(child: ElevatedButton(onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));}, child: Text("Criar conta"))))
+            Container(
+              width: MediaQuery.of(context).size.width, 
+              height: 60, 
+              child: Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));
+                  }, 
+                  child: Text("Criar conta"),
+                ),
+              ),
+            ),
           ],
         ),
       ),

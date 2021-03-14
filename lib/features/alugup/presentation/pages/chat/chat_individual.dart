@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,10 +5,12 @@ import 'package:flutter/services.dart';
 class ChatIndividual extends StatefulWidget {
   final List<Map<String, dynamic>> messages;
   final String appBarTitle;
+  final Function att;
   const ChatIndividual({
     Key key,
     this.messages,
     this.appBarTitle,
+    this.att,
   }) : super(key: key);
 
   @override
@@ -154,7 +154,9 @@ class _ChatIndividualState extends State<ChatIndividual> {
           //     },
           //   ),
           // ),
-          mensagens(messages),
+          Expanded(
+            child: mensagens(messages),
+          ),
           !chatAtivo
             ? Container(
               height: 60,
@@ -166,91 +168,65 @@ class _ChatIndividualState extends State<ChatIndividual> {
             )
             : Container(
               child: SingleChildScrollView(
-                child: Container(
-                  constraints: BoxConstraints(
-                    minHeight: 20,
-                    maxHeight: 150,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).secondaryHeaderColor,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: Theme.of(context).cardColor),
-                  ),
-                  margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  padding: EdgeInsets.fromLTRB(20, 0, 10, 0),
-                  width: (MediaQuery.of(context).size.width * 1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          controller: controller,
-                          decoration: InputDecoration(
-                            hintText: "Digite sua mensagem aqui...",
-                            counterText: "",
+                child: Column(
+                  children: [
+                    Container(
+                      constraints: BoxConstraints(
+                        minHeight: 20,
+                        maxHeight: 150,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(color: Theme.of(context).cardColor),
+                      ),
+                      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      padding: EdgeInsets.fromLTRB(20, 0, 10, 0),
+                      width: (MediaQuery.of(context).size.width * 1),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: TextField(
+                              controller: controller,
+                              decoration: InputDecoration(
+                                hintText: "Digite sua mensagem aqui...",
+                                counterText: "",
+                              ),
+                              keyboardType: TextInputType.multiline,
+                              textInputAction: TextInputAction.newline,
+                              maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                              minLines: 1,
+                              maxLines: 5,
+                              maxLength: 200,
+                            ),
                           ),
-                          autofocus: chatAtivo,
-                          keyboardType: TextInputType.multiline,
-                          textInputAction: TextInputAction.newline,
-                          maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                          minLines: 1,
-                          maxLines: 5,
-                          maxLength: 200,
-                        ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.send_outlined,
+                              color: Theme.of(context).textTheme.headline6.color,
+                            ),
+                            color: Theme.of(context).textTheme.headline6.color,
+                            onPressed: () async {
+                              if (controller.text.trim().isNotEmpty) {
+                                Map<String, dynamic> msg = {
+                                  "msg": controller.text.trim(),
+                                  "user": 0,
+                                  "envio": DateTime.now(),
+                                };
+                                controller.clear();
+                                widget.messages.add(msg);
+                                setState(() {});
+                                widget.att();
+                              }
+                            },
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.send_outlined,
-                          color: Theme.of(context).textTheme.headline6.color,
-                        ),
-                        color: Theme.of(context).textTheme.headline6.color,
-                        onPressed: () async {
-                          // if (criarChat) {
-                          //   if (!widget.chat.veioDoChat) await createChat();
-                          //   criarChat = false;
-                          // }
-                          // WidgetsBinding.instance.addPostFrameCallback(
-                          //     (_) => {
-                          //           controllerRolagem.jumpTo(
-                          //               controllerRolagem
-                          //                   .position.maxScrollExtent)
-                          //         });
-                          // while (control.text.contains("\n\n\n"))
-                          //   control.text =
-                          //       control.text.replaceAll("\n\n\n", "\n\n");
-                          // control.text = control.text.trim();
-                          // if (control.text.isNotEmpty) {
-                          //   FirebaseFirestore.instance
-                          //       .collection("chats")
-                          //       .doc(widget.chat.id)
-                          //       .update({
-                          //     "mensagem": control.text,
-                          //     "enviadoPorParceiro": true,
-                          //     "updatedDate":
-                          //         DateTime.now().millisecondsSinceEpoch
-                          //   });
-                          //   FirebaseFirestore.instance
-                          //       .collection("chats")
-                          //       .doc(widget.chat.id)
-                          //       .collection("mensagens")
-                          //       .doc()
-                          //       .set({
-                          //     "mensagem": control.text,
-                          //     "enviadoPorParceiro": true,
-                          //     "read": false,
-                          //     "createdDate":
-                          //         DateTime.now().millisecondsSinceEpoch
-                          //   });
-                          //   NOTIFICACAO_DE_MENSAGEM(widget.chat.idParceiro
-                          //       .toString()); // Notificar para o Parceiro
-                          // }
-                          // control.clear();
-                        },
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -305,6 +281,9 @@ class _ChatIndividualState extends State<ChatIndividual> {
                 if (aux == "Começo da Conversa") aux = dia;
                 mensagemDia = dia;
                 DateTime envio = messages[index]["envio"];
+
+                String diaEnvio = envio.day > 9 ? "${envio.day}" : "0${envio.day}";
+                String mesEnvio = envio.month > 9 ? "${envio.month}" : "0${envio.month}";
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
@@ -324,9 +303,9 @@ class _ChatIndividualState extends State<ChatIndividual> {
                               color: Theme.of(context).secondaryHeaderColor,
                               borderRadius: BorderRadius.all(Radius.circular(5)),
                             ),
-                            // child: Text(
-                            //   "${envio.day}/${envio.month}",
-                            // ),
+                            child: Text(
+                              "$diaEnvio/$mesEnvio",
+                            ),
                           ),
                         ],
                       )

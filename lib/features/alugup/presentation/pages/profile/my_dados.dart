@@ -35,7 +35,6 @@ class _MeusDadosState extends State<MeusDados> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           title: Text(
             "Meus Dados",
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),

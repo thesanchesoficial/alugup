@@ -1,7 +1,10 @@
 import 'package:alugup/features/alugup/app/alugup_variaveis.dart';
 import 'package:alugup/features/alugup/presentation/pages/auth/login.dart';
+import 'package:alugup/features/alugup/presentation/pages/profile/meus_cartoes.dart';
+import 'package:alugup/features/alugup/presentation/pages/profile/meus_enderecos.dart';
 import 'package:alugup/features/alugup/presentation/pages/profile/my_alugueis.dart';
 import 'package:alugup/features/alugup/presentation/pages/profile/my_dados.dart';
+import 'package:alugup/features/alugup/presentation/pages/profile/notificacoes.dart';
 import 'package:flutter/material.dart';
 
 class Perfil extends StatefulWidget {
@@ -65,7 +68,12 @@ class _PerfilState extends State<Perfil> {
                 title: Text("Cartões"),
                 trailing: Icon(Icons.navigate_next),
                 leading: Icon(Icons.credit_card),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MeusCartoes()),
+                  );
+                },
               ),
               ListTile(
                 title: Text("Fidelidade"),
@@ -77,7 +85,23 @@ class _PerfilState extends State<Perfil> {
                 title: Text("Notificações"),
                 trailing: Icon(Icons.navigate_next),
                 leading: Icon(Icons.notifications_active_outlined),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Notificacoes()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text("Meus endereços"),
+                trailing: Icon(Icons.navigate_next),
+                leading: Icon(Icons.person_outlined),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MeusEnderecos()),
+                  );
+                },
               ),
             ],
           ),

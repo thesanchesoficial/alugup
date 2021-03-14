@@ -3,7 +3,7 @@ import 'package:alugup/features/alugup/presentation/pages/chat/chat_list.dart';
 import 'package:alugup/features/alugup/presentation/pages/favorites/favorites.dart';
 import 'package:alugup/features/alugup/presentation/pages/home/home.dart';
 import 'package:alugup/features/alugup/presentation/pages/product/add_product.dart';
-import 'package:alugup/features/alugup/presentation/pages/profile/my_dados.dart';
+import 'package:alugup/features/alugup/presentation/pages/profile/profile.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,7 @@ class _AlugUpHomeState extends State<AlugUpHome> with SingleTickerProviderStateM
     Chat(),
     Favoritos(),
     Adicionar(),
-    MeusDados(),
+    Perfil(),
   ];
 
   @override
