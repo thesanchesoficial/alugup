@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'chat_individual.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -759,41 +760,66 @@ class _ChatState extends State<Chat> {
         padding: EdgeInsets.only(top: 7),
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              padding: EdgeInsets.all(20),
-              child: ListTile(
-                title: Text("Arnaldo"),
-                subtitle: Text("Gostei do produto"),
-                trailing: Icon(Icons.keyboard_arrow_right_outlined),
+            GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: EdgeInsets.all(20),
+                child: ListTile(
+                  title: Text("Arnaldo"),
+                  subtitle: Text("Gostei do produto"),
+                  trailing: Icon(Icons.keyboard_arrow_right_outlined),
+                ),
               ),
+              onTap: (){
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (BuildContext context) => ChatIndividual(messages: chatArnaldo,)),
+                );
+              },
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              padding: EdgeInsets.all(20),
-              child: ListTile(
-                title: Text("Ronaldo"),
-                subtitle: Text("Consegue me entregar no centro?"),
-                trailing: Icon(Icons.keyboard_arrow_right_outlined),
+            GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: EdgeInsets.all(20),
+                child: ListTile(
+                  title: Text("Ronaldo"),
+                  subtitle: Text("Consegue me entregar no centro?"),
+                  trailing: Icon(Icons.keyboard_arrow_right_outlined),
+                ),
               ),
+              onTap: (){
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (BuildContext context) => ChatIndividual(messages: chatRonaldo,)),
+                );
+              },
             ),
-            Container(
-              decoration: BoxDecoration(
+            GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
                   color: Colors.grey[300],
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              padding: EdgeInsets.all(20),
-              child: ListTile(
-                title: Text("Renata"),
-                subtitle: Text("Como que funciona essa furadeira?"),
-                trailing: Icon(Icons.keyboard_arrow_right_outlined),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: EdgeInsets.all(20),
+                child: ListTile(
+                  title: Text("Renata"),
+                  subtitle: Text("Como que funciona essa furadeira?"),
+                  trailing: Icon(Icons.keyboard_arrow_right_outlined),
+                ),
               ),
+              onTap: (){
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (BuildContext context) => ChatIndividual(messages: chatRenata,)),
+                );
+              },
             ),
           ],
         ),
@@ -825,7 +851,7 @@ class _FavoritosState extends State<Favoritos> {
           children: [
             Text("Poxa... Nenhum favorito"),
             SizedBox(height: 10),
-            Text("Selecione um locatário e adicione aos favoritos.")
+            Text("Selecione um locatário e adicione aos favoritos."),
           ],
         ),
       ),
@@ -1289,3 +1315,96 @@ class _AlugueisState extends State<Alugueis> {
     );
   }
 }
+
+
+
+final agora = DateTime.now();
+
+List<Map<String, dynamic>> chatRenata = [
+  {
+    "msg": "Olá",
+    "user": 1,
+    "envio": DateTime(agora.year, agora.month, 2, 14, 35),
+  },
+  {
+    "msg": "Oi, boa tarde",
+    "user": 0,
+    "envio": DateTime(agora.year, agora.month, 2, 14, 36),
+  },
+  {
+    "msg": "Gostaria de alugar este item que você disponibilizou",
+    "user": 1,
+    "envio": DateTime(agora.year, agora.month, 2, 14, 37),
+  },
+  {
+    "msg": "Tudo bem, este item seria a furadeira?",
+    "user": 0,
+    "envio": DateTime(agora.year, agora.month, 2, 14, 37),
+  },
+  {
+    "msg": "Sim, isso mesmo",
+    "user": 1,
+    "envio": DateTime(agora.year, agora.month, 2, 14, 38),
+  },
+  {
+    "msg": "Como que funciona essa furadeira?",
+    "user": 1,
+    "envio": DateTime(agora.year, agora.month, 2, 14, 38),
+  },
+];
+
+List<Map<String, dynamic>> chatRonaldo = [
+  {
+    "msg": "Bom dia",
+    "user": 0,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 11),
+  },
+  {
+    "msg": "Olá, bom dia",
+    "user": 1,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 11),
+  },
+  {
+    "msg": "É sobre aquele item que combinamos",
+    "user": 0,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 12),
+  },
+  {
+    "msg": "Gostaria de saber onde acha melhor para a devolução",
+    "user": 1,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 15),
+  },
+  {
+    "msg": "Consegue me entragar no centro?",
+    "user": 0,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 15),
+  },
+];
+
+List<Map<String, dynamic>> chatArnaldo = [
+  {
+    "msg": "Olá, Ronaldo",
+    "user": 0,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 11),
+  },
+  {
+    "msg": "Olá",
+    "user": 1,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 11),
+  },
+  {
+    "msg": "Eu estava vendo alguns de seus itens disponíveis para aluguel",
+    "user": 0,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 12),
+  },
+  {
+    "msg": "Ah, sim, e o que achou?",
+    "user": 1,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 15),
+  },
+  {
+    "msg": "Gostei do produto",
+    "user": 0,
+    "envio": DateTime(agora.year, agora.month, 5, 10, 15),
+  },
+];
