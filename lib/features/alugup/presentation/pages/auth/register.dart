@@ -66,7 +66,8 @@ class _CadastroState extends State<Cadastro> {
               controller: senha,
               keyboardType: TextInputType.visiblePassword,
               textInputAction: TextInputAction.next,
-              labelText: "Senha"
+              labelText: "Senha",
+              obscureText: true,
             ),
             SizedBox(height: 15),
             OwTextField(

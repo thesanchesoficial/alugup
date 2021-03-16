@@ -35,13 +35,11 @@ class _ChatState extends State<Chat> {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChatIndividual(
+                OwRouter.rightToLeft(context, ChatIndividual(
                     messages: chatArnaldo, 
                     appBarTitle: "Arnaldo", 
                     att: att,
-                  )),
+                  )
                 );
               },
             ),

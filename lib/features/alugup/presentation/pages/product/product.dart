@@ -1,3 +1,4 @@
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 class DetalhesItem extends StatefulWidget {
@@ -15,11 +16,14 @@ class _DetalhesItemState extends State<DetalhesItem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(dados["title"]),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Color(0xff66008e),
+      appBar: OwAppBar(
+        title: dados["title"].toString(),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_downward_outlined),
+          onPressed: () {
+            OwRouter.close(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
@@ -45,16 +49,12 @@ class _DetalhesItemState extends State<DetalhesItem> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: Color(0xff66008e),
-        width: MediaQuery.of(context).size.width,
-        height: 60,
-        child: Center(
-          child: Text("ALUGAR AGORA",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        ),
-      ),
+      bottomNavigationBar: OwButton(
+        onPressed: () {},
+        labelText: "Alugar agora",
+        hideRadius: true,
+        radius: 0,
+      )
     );
   }
 }

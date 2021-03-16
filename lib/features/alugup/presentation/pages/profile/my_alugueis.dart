@@ -1,4 +1,5 @@
 import 'package:alugup/features/alugup/app/alugup_variaveis.dart';
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 class Alugueis extends StatefulWidget {
@@ -14,21 +15,8 @@ class _AlugueisState extends State<Alugueis> {
     double largura = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Alugueis",
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-        ),
-        backgroundColor: Color(0xff66008e),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+      appBar: OwAppBar(
+        title: "Alugueis"
       ),
       body: Container(
         padding: EdgeInsets.all(10),

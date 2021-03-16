@@ -1,5 +1,6 @@
 import 'package:alugup/features/alugup/app/alugup_variaveis.dart';
 import 'package:alugup/features/alugup/presentation/pages/profile/add_cartao.dart';
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 class Notificacoes extends StatefulWidget {
@@ -13,14 +14,9 @@ class _NotificacoesState extends State<Notificacoes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Notificações",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-          ),
-          backgroundColor: Color(0xff66008e),
-          centerTitle: true,
-        ),
+      appBar: OwAppBar(
+        title: "Notificações"
+      ),
         body: notificacoes.isNotEmpty
           ? Column(
             children: <Widget>[

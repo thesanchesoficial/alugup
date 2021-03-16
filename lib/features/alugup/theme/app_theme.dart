@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static final Color error = Colors.red;
-  static final Color verdeVenver = Color(0xff12aa4b); // Color(0xFF0fbf4f); // Color(0xFF2DB300); // Color(0xff007a55);
+  static final Color verdeVenver = Color(0xff12aa4b);
 
   static final SliderThemeData sliderTheme = SliderThemeData(
     activeTrackColor: verdeVenver,
@@ -40,9 +40,12 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       brightness: Brightness.light,
       color: Color(0xffffffff),
+      iconTheme: IconThemeData(
+        color: Colors.white
+      ),
       elevation: 0.0,
       actionsIconTheme: IconThemeData(
-        color: verdeVenver,
+        color: Colors.white
       ),
     ),
   );

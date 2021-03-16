@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:alugup/features/alugup/app/alugup_home.dart';
 import 'package:alugup/features/alugup/app/alugup_variaveis.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:http/http.dart' as http;
@@ -37,118 +38,92 @@ class _NovoEnderecoState extends State<NovoEndereco> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Novo Endereço",
-          style: TextStyle(
-            fontSize: 15, 
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        backgroundColor: Color(0xff66008e),
-        centerTitle: true,
+      appBar: OwAppBar(
+        title: "Novo Endereço"
       ),
       body: Column(
         children: <Widget>[
           Expanded(
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TextField(
+                  OwTextField(
                     controller: cep,
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
                     maxLength: 200,
                     maxLengthEnforced: true,
                     autofocus: true,
-                    decoration: InputDecoration(
-                      labelText: "CEP",
-                      counterText: "",
-                    ),
+                    labelText: "CEP",
+                    counterText: "",
                   ),
-                  TextField(
+                  OwTextField(
                     controller: rua,
+                    margin: EdgeInsets.only(top: 15),
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
-                    decoration: InputDecoration(
-                      labelText: "Rua",
-                    ),
+                    labelText: "Rua",
                   ),
-                  TextField(
+                  OwTextField(
                     controller: numero,
-                    // margin: EdgeInsets.only(top: 15),
+                    margin: EdgeInsets.only(top: 15),
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      labelText: "Número",
-                    ),
+                    labelText: "Número",
                   ),
-                  TextField(
+                  OwTextField(
                     controller: bairro,
+                    margin: EdgeInsets.only(top: 15),
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
-                    decoration: InputDecoration(
-                      labelText: "Bairro",
-                    ),
+                    labelText: "Bairro",
                   ),
-                  TextField(
+                  OwTextField(
                     controller: cidade,
+                    margin: EdgeInsets.only(top: 15),
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
-                    decoration: InputDecoration(
-                      labelText: "Cidade",
-                    ),
+                    labelText: "Cidade",
                   ),
-                  TextField(
+                  OwTextField(
                     controller: estado,
+                    margin: EdgeInsets.only(top: 15),
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
                     textCapitalization: TextCapitalization.characters,
-                    decoration: InputDecoration(
-                      labelText: "Estado",
-                    ),
+                    labelText: "Estado",
                   ),
                 ],
               ),
             ),
           ),
-          FlatButton(
-            padding: EdgeInsets.all(0),
-            child: Container(
-              color: Color(0xff66008e),
-              width: MediaQuery.of(context).size.width,
-              height: 55,
-              child: Center(
-                child: Text(
-                  "Adicionar endereço",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-            onPressed: () async{
-              Map endereco = {
-                "cep": cep.text,
-                "logradouro": rua.text,
-                "complemento": complemento.text,
-                "bairro": bairro.text,
-                "localidade": cidade.text,
-                "uf": estado.text,
-                "ibge": "",
-                "gia": "",
-                "ddd": "",
-                "siafi": "",
-              };
-              enderecos.add(endereco);
-              Navigator.pop(context);
-              widget.att();
-            },
-          )
         ],
+      ),
+      bottomNavigationBar: OwButton(
+        onPressed: () async {
+          Map endereco = {
+            "cep": cep.text,
+            "logradouro": rua.text,
+            "complemento": complemento.text,
+            "bairro": bairro.text,
+            "localidade": cidade.text,
+            "uf": estado.text,
+            "ibge": "",
+            "gia": "",
+            "ddd": "",
+            "siafi": "",
+          };
+          enderecos.add(endereco);
+          Navigator.pop(context);
+          widget.att();
+        },
+        radius: 0,
+        labelText: "Adicionar endereço",
       ),
     );
   }

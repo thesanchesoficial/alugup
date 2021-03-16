@@ -1,5 +1,6 @@
 import 'package:alugup/features/alugup/app/alugup_variaveis.dart';
 import 'package:alugup/features/alugup/presentation/pages/profile/add_endereco.dart';
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 class MeusEnderecos extends StatefulWidget {
@@ -13,13 +14,8 @@ class _MeusEnderecosState extends State<MeusEnderecos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Meus Endereços",
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-        ),
-        backgroundColor: Color(0xff66008e),
-        centerTitle: true,
+      appBar: OwAppBar(
+        title: "Meus endereços"
       ),
       body: enderecos.isNotEmpty
         ? Column(
@@ -81,27 +77,13 @@ class _MeusEnderecosState extends State<MeusEnderecos> {
             ),
           ),
         ),
-      bottomNavigationBar: 
-        FlatButton(
-          padding: EdgeInsets.all(0),
-          child: Container(
-            color: Color(0xff66008e),
-            width: MediaQuery.of(context).size.width,
-            height: 55,
-            child: Center(
-              child: Text(
-                "Adicionar endereço",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ),
-          onPressed: () async{
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => NovoEndereco(att: att)),
-            );
-          },
-        ),
+      bottomNavigationBar: OwButton(
+        onPressed: () async {
+          OwRouter.rightToLeft(context, NovoEndereco(att: att));
+        },
+        radius: 0,
+        labelText: "Adicionar endereço",
+      )
     );
   }
 

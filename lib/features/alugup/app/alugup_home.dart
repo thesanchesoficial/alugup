@@ -4,6 +4,7 @@ import 'package:alugup/features/alugup/presentation/pages/favorites/favorites.da
 import 'package:alugup/features/alugup/presentation/pages/home/home.dart';
 import 'package:alugup/features/alugup/presentation/pages/product/add_product.dart';
 import 'package:alugup/features/alugup/presentation/pages/profile/profile.dart';
+import 'package:alugup/features/alugup/theme/app_theme.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -40,27 +41,27 @@ class _AlugUpHomeState extends State<AlugUpHome> with SingleTickerProviderStateM
           BottomNavyBarItem(
             icon: Icon(Icons.home_outlined),
             title: Text("Inicio"),
-            activeColor: Color(0xff66008e),
+            activeColor: AppTheme.verdeVenver,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.message_outlined),
             title: Text("Chats"),
-            activeColor: Color(0xff66008e),
+            activeColor: AppTheme.verdeVenver,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.favorite_outline),
             title: Text("Favoritos"),
-            activeColor: Color(0xff66008e),
+            activeColor: AppTheme.verdeVenver,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.add),
             title: Text("Adicionar"),
-            activeColor: Color(0xff66008e),
+            activeColor: AppTheme.verdeVenver,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.person_outline),
             title: Text("Perfil"),
-            activeColor: Color(0xff66008e),
+            activeColor: AppTheme.verdeVenver,
           ),
         ],
       ),

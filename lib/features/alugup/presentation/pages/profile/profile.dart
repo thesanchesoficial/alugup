@@ -43,10 +43,7 @@ class _PerfilState extends State<Perfil> {
                 trailing: Icon(Icons.navigate_next),
                 leading: Icon(Icons.person_outlined),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MeusDados()),
-                  );
+                  OwRouter.rightToLeft(context, MeusDados());
                 },
               ),
               ListTile(
@@ -54,10 +51,7 @@ class _PerfilState extends State<Perfil> {
                 trailing: Icon(Icons.navigate_next),
                 leading: Icon(Icons.receipt_long),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Alugueis()),
-                  );
+                  OwRouter.rightToLeft(context, Alugueis());
                 },
               ),
               ListTile(
@@ -65,10 +59,7 @@ class _PerfilState extends State<Perfil> {
                 trailing: Icon(Icons.navigate_next),
                 leading: Icon(Icons.credit_card),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MeusCartoes()),
-                  );
+                  OwRouter.rightToLeft(context, MeusCartoes());
                 },
               ),
               ListTile(
@@ -82,10 +73,7 @@ class _PerfilState extends State<Perfil> {
                 trailing: Icon(Icons.navigate_next),
                 leading: Icon(Icons.notifications_active_outlined),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Notificacoes()),
-                  );
+                  OwRouter.rightToLeft(context, Notificacoes());
                 },
               ),
               ListTile(
@@ -93,10 +81,7 @@ class _PerfilState extends State<Perfil> {
                 trailing: Icon(Icons.navigate_next),
                 leading: Icon(Icons.person_outlined),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MeusEnderecos()),
-                  );
+                  OwRouter.rightToLeft(context, MeusEnderecos());
                 },
               ),
             ],

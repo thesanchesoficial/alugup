@@ -1,4 +1,5 @@
 import 'package:alugup/features/alugup/presentation/pages/product/product.dart';
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 
@@ -74,11 +75,14 @@ class _DetalhesLocatariosState extends State<DetalhesLocatarios> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(dados["nome"]),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Color(0xff66008e),
+      appBar: OwAppBar(
+        title: dados["nome"].toString(),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_downward_outlined),
+          onPressed: () {
+            OwRouter.close(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
@@ -165,16 +169,12 @@ class _DetalhesLocatariosState extends State<DetalhesLocatarios> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: Color(0xff66008e),
-        width: MediaQuery.of(context).size.width,
-        height: 60,
-        child: Center(
-          child: Text("CHAT",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        ),
-      ),
+      bottomNavigationBar: OwButton(
+        onPressed: () {},
+        labelText: "Chat",
+        hideRadius: true,
+        radius: 0,
+      )
     );
   }
 }

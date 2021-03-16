@@ -1,3 +1,4 @@
+import 'package:components_venver/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -105,38 +106,8 @@ class _ChatIndividualState extends State<ChatIndividual> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.appBarTitle ?? "Chat",
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-        ),
-        actions: [
-          // widget.chat.finalizado
-          //   ? SizedBox()
-          //   : Tooltip(
-          //     message: "Finalizar",
-          //     child: IconButton(
-          //       icon: Icon(Icons.check_circle_outline_sharp),
-          //       onPressed: () async {
-          //         finalizarChat();
-          //       }
-          //     ),
-          //   ),
-          // Tooltip(
-          //   message: "Informações",
-          //   child: IconButton(
-          //     icon: Icon(Icons.info_outline),
-          //     onPressed: () async {
-          //       var retorno = await Api.buscarPedido(widget.chat.id, exibirToast: true);
-          //       if(retorno["code"].toString() == "200"){
-          //         PedidoEntity pedido = PedidoEntity.fromMap(retorno["success"]);
-          //         Navigator.push(context, DireitaEsquerda(page: DetalhesPedido(pedido, () {})));
-          //       }
-          //     },
-          //   ),
-          // ),
-        ],
-        centerTitle: true,
+      appBar: OwAppBar(
+        title: widget.appBarTitle ?? "Chat".toUpperCase(),
       ),
       body: Column(
         children: <Widget>[

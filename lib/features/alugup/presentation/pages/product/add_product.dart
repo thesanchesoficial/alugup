@@ -68,6 +68,7 @@ class _AdicionarState extends State<Adicionar> {
           ),
           OwButton(
             hideRadius: true,
+            radius: 0,
             labelText: "Cadastrar item",
           ),
         ],

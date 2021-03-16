@@ -37,7 +37,8 @@ class _LoginState extends State<Login> {
             SizedBox(height: 15),
             OwTextField(
               controller: senha,
-              labelText: "Senha"
+              labelText: "Senha",
+              obscureText: true,
             ),
             SizedBox(height: 15),
             OwButton(

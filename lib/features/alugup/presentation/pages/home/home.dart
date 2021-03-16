@@ -211,11 +211,7 @@ class _InicioState extends State<Inicio> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DetalhesItem(
-                                    adicionadosRecentemente[index])));
+                        OwRouter.bottomStack(context, DetalhesItem(adicionadosRecentemente[index]));
                       },
                       child: Container(
                         margin: EdgeInsets.only(left: 20),
@@ -289,11 +285,7 @@ class _InicioState extends State<Inicio> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    DetalhesLocatarios(locatarios[index])));
+                        OwRouter.bottomStack(context, DetalhesLocatarios(locatarios[index]));
                       },
                       child: Container(
                         padding: EdgeInsets.all(20),
