@@ -1,3 +1,4 @@
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 class Favoritos extends StatefulWidget {
@@ -9,25 +10,10 @@ class _FavoritosState extends State<Favoritos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Favoritos"),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Color(0xff66008e),
+      appBar: OwAppBar(
+        title: "Favoritos",
       ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("Poxa... Nenhum favorito"),
-            SizedBox(height: 10),
-            Text("Selecione um locatário e adicione aos favoritos.")
-          ],
-        ),
-      ),
+      body: NenhumItem(titulo: "Poxa... Nenhum favorito", subtitulo: "Selecione um locatário e adicione aos favoritos.")
     );
   }
 }

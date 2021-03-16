@@ -1,3 +1,4 @@
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
@@ -17,78 +18,56 @@ class _AdicionarState extends State<Adicionar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Adicionar"),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Color(0xff66008e),
+      appBar: OwAppBar(
+        title: "Adicionar item",
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TextField(
+                  OwTextField(
                     controller: nome,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
                     maxLength: 200,
                     maxLengthEnforced: true,
-                    decoration: InputDecoration(
-                      labelText: "Nome do item",
-                      counterText: "",
-                    ),
+                    labelText: "Nome do item",
+                    counterText: "",
                   ),
-                  TextField(
+                  OwTextField(
+                    margin: EdgeInsets.only(top: 15),
                     controller: preco,
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      labelText: "Preço",
-                    ),
+                    labelText: "Preço",
                   ),
-                  TextField(
-                    // margin: EdgeInsets.only(top: 15),
+                  OwTextField(
+                    margin: EdgeInsets.only(top: 15),
                     controller: qtd,
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      labelText: "Quantidade",
-                    ),
+                    labelText: "Quantidade",
                   ),
-                  TextField(
-                    // margin: EdgeInsets.only(top: 15),
+                  OwTextField(
+                    margin: EdgeInsets.only(top: 15),
                     controller: duracao,
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      labelText: "Duração",
-                    ),
+                    labelText: "Duração",
                   ),
                 ],
               ),
             ),
           ),
-          FlatButton(
-            padding: EdgeInsets.all(0),
-            child: Container(
-              color: Color(0xff66008e),
-              width: MediaQuery.of(context).size.width,
-              height: 55,
-              child: Center(
-                child: Text(
-                  "Cadastrar Item",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-            onPressed: () {},
-          )
+          OwButton(
+            labelText: "Cadastrar item",
+          ),
         ],
       ),
     );

@@ -1,7 +1,8 @@
 import 'package:alugup/features/alugup/app/alugup_application.dart';
-import 'package:alugup/features/alugup/app/alugup_variaveis.dart';
 import 'package:alugup/features/alugup/presentation/pages/auth/login.dart';
-import 'package:bot_toast/bot_toast.dart';
+import 'package:alugup/features/alugup/theme/app_theme.dart';
+import 'package:components_venver/components.dart';
+import 'package:components_venver/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 
@@ -14,9 +15,10 @@ class AlugupWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'AlugUp',
-      builder: BotToastInit(),
-      navigatorKey: navigatorKey,
+      builder: ComponentsInit(),
+      navigatorKey: navigatorGlobalKey,
       home: Login(),
+      theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,5 +1,6 @@
 import 'package:alugup/features/alugup/presentation/pages/product/product.dart';
 import 'package:alugup/features/alugup/presentation/pages/seller/seller.dart';
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 class Inicio extends StatefulWidget {
@@ -129,13 +130,8 @@ class _InicioState extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Color(0xff66008e),
-          automaticallyImplyLeading: false,
-          elevation: 0,
-          title: Text("alugUP"),
-          centerTitle: true,
+        appBar: OwAppBar(
+          title: "alugUP",
         ),
         body: SingleChildScrollView(
           child: Column(

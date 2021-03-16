@@ -1,5 +1,6 @@
 import 'package:alugup/features/alugup/app/alugup_variaveis.dart';
 import 'package:alugup/features/alugup/presentation/pages/chat/chat_individual.dart';
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 class Chat extends StatefulWidget {
@@ -12,12 +13,8 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Chats"),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: Color(0xff66008e),
+      appBar: OwAppBar(
+        title: "Chats",
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 7),

@@ -5,6 +5,7 @@ import 'package:alugup/features/alugup/presentation/pages/profile/meus_enderecos
 import 'package:alugup/features/alugup/presentation/pages/profile/my_alugueis.dart';
 import 'package:alugup/features/alugup/presentation/pages/profile/my_dados.dart';
 import 'package:alugup/features/alugup/presentation/pages/profile/notificacoes.dart';
+import 'package:components_venver/material.dart';
 import 'package:flutter/material.dart';
 
 class Perfil extends StatefulWidget {
@@ -18,19 +19,14 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Color(0xff66008e),
-        elevation: 0,
-        title: Text(dados2["nome"].toString()),
+      appBar: OwAppBar(
+        title: dados2["nome"].toString(),
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.logout,
-            ),
+            icon: Icon(Icons.logout),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), (route) => false);
+              OwRouter.rightToLeft(context, Login(), removeUntil: true);
             },
           ),
         ],
