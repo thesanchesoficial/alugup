@@ -132,6 +132,7 @@ class _InicioState extends State<Inicio> {
     return Scaffold(
         appBar: OwAppBar(
           title: "alugUP",
+          showBackAutomatically: false,
         ),
         body: SingleChildScrollView(
           child: Column(

@@ -20,6 +20,7 @@ class _AdicionarState extends State<Adicionar> {
     return Scaffold(
       appBar: OwAppBar(
         title: "Adicionar item",
+        showBackAutomatically: false,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,6 +67,7 @@ class _AdicionarState extends State<Adicionar> {
             ),
           ),
           OwButton(
+            hideRadius: true,
             labelText: "Cadastrar item",
           ),
         ],

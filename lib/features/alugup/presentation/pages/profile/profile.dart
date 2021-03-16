@@ -21,7 +21,7 @@ class _PerfilState extends State<Perfil> {
     return Scaffold(
       appBar: OwAppBar(
         title: dados2["nome"].toString(),
-        centerTitle: true,
+        showBackAutomatically: false,
         actions: [
           IconButton(
             icon: Icon(Icons.logout),

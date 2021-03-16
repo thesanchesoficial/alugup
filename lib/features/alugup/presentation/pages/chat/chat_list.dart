@@ -15,6 +15,7 @@ class _ChatState extends State<Chat> {
       backgroundColor: Colors.white,
       appBar: OwAppBar(
         title: "Chats",
+        showBackAutomatically: false,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 7),

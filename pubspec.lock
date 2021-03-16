@@ -76,10 +76,10 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "4ae85cc6e9590f69638fc77b3575f84a3092780d"
+      resolved-ref: "8958942809113793c30f60eedaf759a33fb8d4dc"
       url: "git://github.com/thesanchesoficial/components_venver"
     source: git
-    version: "0.0.16"
+    version: "0.0.17"
   convert:
     dependency: transitive
     description:

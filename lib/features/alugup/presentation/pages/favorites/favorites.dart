@@ -12,6 +12,7 @@ class _FavoritosState extends State<Favoritos> {
     return Scaffold(
       appBar: OwAppBar(
         title: "Favoritos",
+        showBackAutomatically: false,
       ),
       body: NenhumItem(titulo: "Poxa... Nenhum favorito", subtitulo: "Selecione um locatário e adicione aos favoritos.")
     );
